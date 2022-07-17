@@ -1,0 +1,13 @@
+.section {
+  margin: 20px 0;
+
+  &__label {
+    margin-left: 25px;
+  }
+
+  &__dropdown {
+    width: 150px;
+    height: 25px;
+    margin-left: 25px;
+  }
+}

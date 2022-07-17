@@ -1,0 +1,46 @@
+@import '../../styles/colours.scss';
+@import '../../styles/breakpoints.scss';
+
+.card {
+  font-family: sans-serif;
+  margin-bottom: 35px;
+  width: 33%;
+
+  @media (max-width: $mobile) {
+    width: 100%;
+    padding: 0;
+    margin-bottom: 20px;
+
+    &:not(:last-child) {
+      border-bottom: 1px solid $neutral-3;
+    }
+  }
+
+  &:not(:last-child) {
+    border-right: 1px solid $neutral-3;
+
+    @media (max-width: $mobile) {
+      border-right: none;
+    }
+  }
+
+  &__image {
+    width: 100%;
+    height: auto;
+    cursor: pointer;
+  }
+
+  &__title {
+    text-decoration: none;
+    color: $neutral-1;
+    
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  &__description {
+    padding: 10px;
+    color: $neutral-2;
+  }
+}

@@ -1,26 +1,46 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from "react";
+import { CardGrid } from "./components/CardGrid/CardGrid";
+import { Story } from "./types/Story";
+import { Section } from "./types/Section";
+import { getStories } from "./utils/api";
 
-function App() {
+import "./App.scss";
+
+const App = () => {
+  const [stories, setStories] = useState<Story[]>([]);
+  const [section, setSection] = useState<Section | "All">("All");
+
+  useEffect(() => {
+    getStories().then((s) => setStories(s));
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+    <>
+      <div className="section">
+        <label className="section__label" htmlFor="section">
+          Section
+        </label>
+        <select
+          className="section__dropdown"
+          name="section"
+          id="section"
+          onChange={(e) => setSection(e.target.value as Section | "All")}
         >
-          Learn React
-        </a>
-      </header>
-    </div>
+          <option value="All">All</option>
+          <option value={Section.Business}>{Section.Business}</option>
+          <option value={Section.Coronavirus}>{Section.Coronavirus}</option>
+          <option value={Section.National}>{Section.National}</option>
+          <option value={Section.Politics}>{Section.Politics}</option>
+          <option value={Section.Quizzes}>{Section.Quizzes}</option>
+        </select>
+      </div>
+      <CardGrid
+        cards={stories.filter(
+          (s) => section === "All" || s.section === section
+        )}
+      />
+    </>
   );
-}
+};
 
 export default App;
